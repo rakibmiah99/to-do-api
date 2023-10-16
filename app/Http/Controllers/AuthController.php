@@ -59,8 +59,9 @@ class AuthController extends Controller
 
                if($request->hasFile('image')){
 
-                   $user->withCustomProperties(['mime-type' => 'image/jpeg'])->
-                   addMediaFromRequest('image')->toMediaCollection('avatar');
+                   $user->
+                   addMediaFromRequest('image')->toMediaCollection('avatar')
+                   ->withCustomProperties(['mime-type' => 'image/jpeg']);
                }
 
                DB::commit();
