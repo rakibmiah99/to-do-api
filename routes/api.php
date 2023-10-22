@@ -15,6 +15,12 @@ use App\Http\Controllers\AuthController;
 */
 Route::post('/login', [AuthController::class, 'login']);
 Route::post('/register', [AuthController::class, 'register']);
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+Route::middleware('auth:sanctum')->group(function (){
+    Route::get('/users', function (Request $request){
+        return $request->all();
+    });
+    Route::prefix('task')->controller(\App\Http\Controllers\TaskController::class)->group(function (){
+        Route::get('get', 'getAll');
+        Route::post('create', 'create');
+    });
 });
